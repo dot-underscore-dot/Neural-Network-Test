@@ -54,11 +54,18 @@ namespace NNN
     }
     class Network
     {
-        List<Node> InputNodes;
-        List<Layer> HiddenLayers;
-        List<Node> OutputNodes;
-        public Network()
-        { }
+        List<Node> InputNodes = new List<Node>();
+        List<Layer> HiddenLayers = new List<Layer>();
+        List<Node> OutputNodes = new List<Node>();
+        public Network(int InputNodes,int HiddenLayers,int OutputNodes)
+        {
+
+        }
+        void Run()
+        {
+
+        }
+
     }
 
     class Layer
@@ -68,7 +75,7 @@ namespace NNN
         {
 
         }
-        List<Connection> ActivateLayerFunctions(List<Connection> inputConnections)
+        public List<Connection> ActivateLayerFunctions(List<Connection> inputConnections)
         {
             var Values = Nodes.ActivateFunctions(inputConnections).Select(x => x.Value).ToList();
             for (int i = 0; i < Nodes.Count; i++) //Loop Through 
