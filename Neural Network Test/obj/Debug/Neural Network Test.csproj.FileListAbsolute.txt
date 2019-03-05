@@ -1,0 +1,7 @@
+C:\Users\Jean Paul Farrugia\source\repos\Neural-Network-Test\Neural Network Test\bin\Debug\NNN.exe.config
+C:\Users\Jean Paul Farrugia\source\repos\Neural-Network-Test\Neural Network Test\bin\Debug\NNN.exe
+C:\Users\Jean Paul Farrugia\source\repos\Neural-Network-Test\Neural Network Test\bin\Debug\NNN.pdb
+C:\Users\Jean Paul Farrugia\source\repos\Neural-Network-Test\Neural Network Test\obj\Debug\Neural Network Test.csprojResolveAssemblyReference.cache
+C:\Users\Jean Paul Farrugia\source\repos\Neural-Network-Test\Neural Network Test\obj\Debug\Neural Network Test.csproj.CoreCompileInputs.cache
+C:\Users\Jean Paul Farrugia\source\repos\Neural-Network-Test\Neural Network Test\obj\Debug\NNN.exe
+C:\Users\Jean Paul Farrugia\source\repos\Neural-Network-Test\Neural Network Test\obj\Debug\NNN.pdb
