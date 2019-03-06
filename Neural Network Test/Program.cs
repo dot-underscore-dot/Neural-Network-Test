@@ -15,20 +15,22 @@ namespace NNN
             var oNodes = int.Parse(Input("Enter Number of Output Nodes:"));
             var hLayers = int.Parse(Input("Enter Number of Hidden Layers:"));
             Network Net = new Network(iNodes, hNodes, oNodes, hLayers);
-            List<double> Inputs = new List<double>();
+            List<decimal> Inputs = new List<decimal>();
             while (true) 
             {
                 for(int i = 0; i < iNodes; i++)
                 {
-                    Inputs.Add(double.Parse(Input($"Enter Value {i + 1} Here:")));
+                    Inputs.Add(decimal.Parse(Input($"Enter Value {i + 1} Here:")));
                 }
-                List<double> Results = Net.Run(Inputs.ToArray());
+                List<decimal> Results = Net.Run(Inputs.ToArray());
                 for(int i = 0; i < Results.Count; i++)
                 {
                     Console.WriteLine($"Output {i + 1}: {Results[i]}");
                 }
+                Inputs.Clear();
             }
         }
+        //static decimal
         static string Input(string InputText)
         {
             Console.Write(InputText);
@@ -38,19 +40,19 @@ namespace NNN
 
     public static class ListExtensions
     {
-        public static List<double> ActivateFunctions(this List<Node> Nodes, List<Connection> inputConnections)
+        public static List<decimal> ActivateFunctions(this List<Node> Nodes, List<Connection> inputConnections)
         {
-            List<double> ToReturn = new List<double>();
+            List<decimal> ToReturn = new List<decimal>();
             for (int i = 0; i < Nodes.Count; i++) //Loop Through 
             {
                 List<Connection> connections = inputConnections.Where((conn) => conn.OutputNodeID == i).ToList();
-                double value = 0;
+                decimal value = 0;
                 foreach (var connection in connections)
                 {
                     value += connection.value * connection.weight;
                 }
 
-                double Result = Nodes[i].ActivationFunction(value);
+                decimal Result = Nodes[i].ActivationFunction(value);
                 ToReturn.Add(Result);
             }
             //var ToReturn = Nodes.Zip(ToReturnpublic List, (k, v) => new { k, v }).ToDictionary(x => x.k, x => x.v);
@@ -97,11 +99,11 @@ namespace NNN
             OutputLayer = new OutputLayer(ONodeCount);
             
         }
-        public List<double> Run(params double[] Input)
+        public List<decimal> Run(params decimal[] Input)
         {
             if (Input.Length != INodeCount)
                 throw new ArgumentException($"Number Of Inputs Should Match Input Node Count (Node Count:{INodeCount}, Inputs Provided:{Input.Length}) ");
-            List<double> ToReturn = new List<double>();
+            List<decimal> ToReturn = new List<decimal>();
             InputLayer.SetValues(Input);
             List<Connection> RecentConnection = InputLayer.outputConnections;
             foreach(var Layer in  HiddenLayers)
@@ -129,11 +131,11 @@ namespace NNN
             Random r = new Random();
             //for (int i = 0; i < INodeCount; i++)
             //{
-                //Nodes.Add(new Node(i));//, r.NextDouble() * 100, r.NextDouble() * 100
+                //Nodes.Add(new Node(i));//, r.Nextdecimal() * 100, r.Nextdecimal() * 100
             //}
             outputConnections = Connection.GenerateConnections(INodeCount, OutputNodeCount);
         }
-        public void SetValues(double[] Inputs)
+        public void SetValues(decimal[] Inputs)
         {
             if (Inputs.Length != INodeCount)
                 throw new ArgumentException($"Number Of Inputs Should Match Input Node Count (Node Count:{INodeCount}, Inputs Provided:{Inputs.Length}) ");
@@ -161,10 +163,10 @@ namespace NNN
             Random r = new Random();
             for (int i = 0; i < ONodeCount; i++)
             {
-                Nodes.Add(new Node(i, r.NextDouble() * 100, r.NextDouble() * 10));
+                Nodes.Add(new Node(i, (decimal)r.NextDouble() * 10, (decimal)r.NextDouble() * 10));
             }
         }
-        public List<double> ActivateLayerFunction(List<Connection> inputConnections)
+        public List<decimal> ActivateLayerFunction(List<Connection> inputConnections)
         {
             return Nodes.ActivateFunctions(inputConnections);//.Select(x => x.Value).Topublic List();
         }
@@ -179,7 +181,7 @@ namespace NNN
             Random r = new Random();
             for (int i = 0; i < HiddenNodeCount; i++)
             {
-                Nodes.Add(new Node(i, r.NextDouble() * 100, r.NextDouble() * 10));
+                Nodes.Add(new Node(i, (decimal)r.NextDouble() * 10, (decimal)r.NextDouble() * 10));
             }
             outputConnections = Connection.GenerateConnections(HiddenNodeCount, OutputNodeCount);
         }
@@ -200,13 +202,13 @@ namespace NNN
         /*for (int i = 0; i < Nodes.Count; i++) //Loop Through 
             {
                 public List<Connection> connections = inputConnections.Where((conn) => conn.OutputNodeID == i).Topublic List();
-                double value = 0;
+                decimal value = 0;
                 foreach(var connection in connections)
                 {
                     value += connection.value * connection.weight; 
                 }
                 
-                double Result = Nodes[i].ActivationFunction(value);
+                decimal Result = Nodes[i].ActivationFunction(value);
             public List<int> ConnIndexes = outputConnections.FindAllIndexesOf((conn) => conn.InputNodeID == i);
             foreach (var Index in ConnIndexes)
             {
@@ -221,8 +223,8 @@ namespace NNN
     {
         
         public int InputNodeID;
-        public double value;
-        public double weight;
+        public decimal value;
+        public decimal weight;
         public int OutputNodeID;
         public static List<Connection> GenerateConnections(int InputNodeCount, int OutputNodeCount)
         {
@@ -236,7 +238,7 @@ namespace NNN
             }
             return ToReturn;
         }
-        public Connection(int InputNodeID, int OutputNodeID, double weight = 1)
+        public Connection(int InputNodeID, int OutputNodeID, decimal weight = 1)
         {
             this.InputNodeID = InputNodeID;
             this.OutputNodeID = OutputNodeID;
@@ -246,24 +248,26 @@ namespace NNN
     public class Node
     {
         public int NodeID; //aka if it's the first one it's 1 if it's the second one it's 2 etc
-        public double importantnumberthingie = 1;
-        public double bias = 0;
+        public decimal importantnumberthingie = 1;
+        public decimal bias = 0;
         public Node(int NodeID)
         {
             this.NodeID = NodeID;
         }
-        public Node(int NodeID, double value, double bias = 0)
+        public Node(int NodeID, decimal value, decimal bias = 0)
         {
             this.NodeID = NodeID;
             importantnumberthingie = value;
             this.bias = bias;
         }
-        public double ActivationFunction(double input)
+        public decimal ActivationFunction(decimal input)
         {
-            double bInput = input - bias;
-            double bwInput = importantnumberthingie * bInput;
-            double bwEnput = Math.Exp(bwInput);
-            return bwEnput / ++bwEnput;
+            decimal bInput = input - bias;
+            decimal bwInput = importantnumberthingie * bInput;
+            return (decimal)(1.0 / (1.0 + Math.Pow(Math.E, (double)-bwInput)));
+            /*double bwEnput = Math.Exp((double)bwInput);
+            var ToReturn = (bwEnput / ++bwEnput);
+            return (decimal)ToReturn;*/
         }
     }
 }
